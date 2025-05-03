@@ -1,2 +1,54 @@
-# .gitignore
+# Node.js
 node_modules/
+.env
+.env.*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs
+*.log
+debug.log
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+coverage/
+.cache/
+.vite/
+
+# React / Vite
+*.local
+.vscode/
+*.sourcemap
+
+# Production
+*.tgz
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Testing
+jest-cache/
+jest-coverage/
+cypress/screenshots/
+cypress/videos/
+playwright-report/
+
+# Optional:
+*.sqlite
+*.sqlite3
+
+# Git
+.gitignore
