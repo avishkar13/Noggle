@@ -1,5 +1,6 @@
 const User = require("../models/user.model.js");
 const Message = require("../models/message.model.js");
+const cloudinary = require("../lib/cloudinary.js");
 
 
 const getUsersForSidebar = async (req, res) => {
@@ -41,7 +42,7 @@ const sendMessage = async (req, res) => {
         let imageUrl;
         if (image) {
             //upload base64 image to cloudinary and get the url
-            const uploadResponse = await cloudinar.uploader.upload(image);
+            const uploadResponse = await cloudinary.uploader.upload(image);
             imageUrl = uploadResponse.secure_url;
         }
         const newMessage = new Message({

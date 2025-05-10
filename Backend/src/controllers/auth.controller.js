@@ -41,6 +41,8 @@ const signup = async (req, res) => {
                 email: newUser.email,
                 // token: generateToken(newUser._id,res)
                 profilePic: newUser.profilePic,
+                createdAt: newUser.createdAt,
+                updatedAt: newUser.updatedAt,
             });
         } else {
             return res.status(400).json({ message: "User not created! Invalid Credentials." });
@@ -76,6 +78,8 @@ const login = (req, res) =>  {
                     fullName: user.fullName,
                     email: user.email,
                     profilePic: user.profilePic,
+                    createdAt: user.createdAt,  
+                    updatedAt: user.updatedAt,
                 });
             })
 
@@ -93,23 +97,81 @@ const logout = (req, res) => {
         return res.status(500).json({ message: "Server error!" });
     }
 
-}
+} 
 
 const updateProfile = async (req, res) => {
-    try{
-        const { profilePic } = req.body;
-        const userId = req.user._id;
-        if (!profilePic) {
-            return res.status(400).json({ message: "Profile Picture is Required" });
+    try {
+      const { profilePic } = req.body;
+      const userId = req.user._id;
+  
+      if (!profilePic) {
+        return res.status(400).json({ message: "Profile pic is required" });
+      }
+  
+      const uploadResponse = await cloudinary.uploader.upload(profilePic);
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { profilePic: uploadResponse.secure_url },
+        { new: true }
+      );
+  
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      console.log("error in update profile:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };
+
+const updatePassword = async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+    const userId = req.user._id;
+    try {
+        if (!oldPassword || !newPassword) {
+            return res.status(400).json({ message: "Please fill all the fields" });
+        }
+        if (newPassword.length < 6) {
+            return res.status(400).json({ message: "Password must be at least 6 characters" });
         }
 
-        // Upload image to cloudinary
-        const uploadResponse = await cloudinary.uploader.upload(profilePic);
-        // Update user profile picture in database
-        const updatedUser = await User.findByIdAndUpdate(userId, { profilePic: uploadResponse.secure_url }, { new: true });
-        res.status(200).json(updatedUser);
+        // Check if user exists
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(400).json({ message: "User not found" });
+        }
+        // Check password
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
+        // Hash password
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-    }catch (error) {
+        // Update password
+        user.password = hashedPassword;
+        await user.save();
+        
+        return res.status(200).json({ message: "Password updated successfully" });
+
+    } catch (error) {
+        return res.status(500).json({ message: "Server error!" });
+    }
+}
+
+const deleteAccount = async (req, res) => {
+    const userId = req.user._id;
+    try {
+        // Check if user exists
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(400).json({ message: "User not found" });
+        }
+        // Delete user
+        await User.findByIdAndDelete(userId);
+        
+        return res.status(200).json({ message: "Account deleted successfully" });
+
+    } catch (error) {
         return res.status(500).json({ message: "Server error!" });
     }
 }
@@ -129,5 +191,7 @@ module.exports = {
     login,
     logout,
     updateProfile,
-    checkAuth
+    checkAuth,
+    updatePassword,
+    deleteAccount,
 };
