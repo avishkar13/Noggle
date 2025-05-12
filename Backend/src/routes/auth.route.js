@@ -24,4 +24,4 @@ router.delete("/delete", protectRoute , deleteAccount);
 
 router.get("/check", protectRoute, checkAuth);
 
-module.exports = router;
+module.exports = router; 

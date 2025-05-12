@@ -11,4 +11,4 @@ router.get("/users", protectRoute, getUsersForSidebar);
 router.get("/:id", protectRoute, getmessages);
 router.post("/send/:id", protectRoute, sendMessage);
 
-module.exports = router;
+module.exports = router; 

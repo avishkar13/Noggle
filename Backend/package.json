@@ -20,7 +20,6 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.16.0",
     "mongoose": "^8.14.1",
-    "noggle": "file:..",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
