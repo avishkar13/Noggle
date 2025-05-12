@@ -10,7 +10,7 @@ const connectDB = require('./lib/db.js');
 const {app, server } = require('./lib/socket.js');
 
 const PORT = process.env.PORT || 5001;
-const __dirname = path.resolve();
+
 
 dotenv.config()
 
