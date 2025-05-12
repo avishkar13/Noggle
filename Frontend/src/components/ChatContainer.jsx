@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useRef } from "react";
 import { useChatStore } from "../store/useChatStore"
 import ChatHeader from "./ChatHeader"
 import MessageInput from "./MesseageInput"
@@ -8,15 +8,29 @@ import formatMessageTime from "../lib/utils";
 
 function ChatContainer() {
 
-  const { messages, getMessages, selectedUser, isMessagesLoading } = useChatStore();
+  const { messages, getMessages, selectedUser, isMessagesLoading, suscribeToMessages, unSuscribeFromMessages } = useChatStore();
 
   const { authUser } = useAuthStore();
+
+  const messageEndRef=useRef(null);
 
 
   useEffect(() => {
     getMessages(selectedUser._id);
-  }, [selectedUser._id, getMessages])
+    suscribeToMessages();
 
+    return () => unSuscribeFromMessages();
+  }, [selectedUser._id, getMessages, suscribeToMessages, unSuscribeFromMessages])
+
+  useEffect(() => {
+    if (messageEndRef.current || messages){
+ 
+      messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+    }, [messages])
+
+
+  //Meassage Loading Skeleton
   if (isMessagesLoading) {
 
     return (
@@ -36,11 +50,12 @@ function ChatContainer() {
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
 
-      <div className="flex-1 p-4 space-y-4 overflow-y-auto">
+      <div className="flex-1 p-4 space-y-4 overflow-y-auto bg-[url('/assets/chatbg.webp')] bg-cover bg-center bg-no-repeat">
+
         {messages.map((message) => (
           <div
             key={message._id}
-
+            ref={messageEndRef}
             className={` chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
           >
             <div className="chat-image avatar">

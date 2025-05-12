@@ -38,7 +38,7 @@ const SettingsPage = () => {
   };
 
   const handleLogout = async () => {
-    await logout();
+    await logout();  
     navigate('/');
   };
 
@@ -46,7 +46,7 @@ const SettingsPage = () => {
     <>
       <Navbar />
       <div className="flex justify-center items-center min-h-[90vh] px-4 bg-gradient-to-bl from-[#0f172a] via-[#1e1a78] to-[#0f172a] transition font-mono">
-        <div className="w-full md:w-[80vw] min-h-[70vh] bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 backdrop-saturate-100 backdrop-contrast-125 shadow-lg rounded-xl p-6 space-y-6 text-white">
+        <div className="w-full md:w-[80vw] xl:w-[60vw] min-h-[70vh] bg-white/10 backdrop-blur-md rounded-2xl shadow-xl   p-6 space-y-6 text-white">
           <h1 className="text-3xl font-bold font-mono text-center">Settings</h1>
 
           {/* Change Password */}
@@ -58,19 +58,19 @@ const SettingsPage = () => {
                 placeholder="Current Password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-[90%] p-2 rounded bg-white/30 border border-white/50 placeholder-white text-white"
+                className="w-full p-2 rounded bg-white/30 border border-white/50 placeholder-white text-white"
               />
               <input
                 type="password"
                 placeholder="New Password"
                 value={newPassword}
                 onChange={e => setNewPassword(e.target.value)}
-                className=" w-[90%] p-2 rounded bg-white/30 border border-white/50 placeholder-white text-white"
+                className=" w-full p-2 rounded bg-white/30 border border-white/50 placeholder-white text-white"
               />
               <button
                 onClick={handlePasswordChange}
                 disabled={isChangingPassword}
-                className={`w-[40%] px-4 py-2 rounded bg-green-600 text-white transition ${isChangingPassword ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700'
+                className={`w-full px-4 py-2 rounded bg-green-600 text-white transition ${isChangingPassword ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700'
                   }`}
               >
                 {isChangingPassword ? 'Updating...' : 'Change Password'}
@@ -98,7 +98,7 @@ const SettingsPage = () => {
               <h2 className="text-xl font-semibold mb-2 text-blue-300">Logout</h2>
               <button
                 onClick={handleLogout}
-                className="w-[30%] px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition"
+                className="w-full px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition"
               >
                 Logout
               </button>
@@ -108,7 +108,7 @@ const SettingsPage = () => {
             <button
               onClick={handleDeleteAccount}
               disabled={isDeletingAccount}
-              className={`w-[30%] px-4 py-2 rounded bg-red-600 text-white transition ${isDeletingAccount ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700'
+              className={`w-full px-4 py-2 rounded bg-red-600 text-white transition ${isDeletingAccount ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700'
                 }`}
             >
               {isDeletingAccount ? 'Deleting...' : 'Delete My Account'}

@@ -7,7 +7,7 @@ const LandingNavbar = () => {
       <div className='flex justify-between items-center mx-8 p-6 '>
        <div>
         <img src="./assets/logo.png" alt="Noggle" 
-        className='h-16 w-44 rounded-full'
+        className='h-12 w-32 md:h-16 md:w-44 rounded-full'
         />
        </div>
 
@@ -17,7 +17,7 @@ const LandingNavbar = () => {
   <button className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:from-purple-600 hover:via-purple-700 hover:to-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center shadow-md h-12 w-28 ">
     Login
   </button>
-  </Link>
+  </Link> 
 
 <Link to="/signup" >
   <button className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:from-purple-600 hover:via-purple-700 hover:to-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center shadow-md h-12 w-28">
