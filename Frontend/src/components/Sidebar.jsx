@@ -37,7 +37,7 @@ function Sidebar() {
   if (isUserLoading) return <SideBarSkeleton />
 
   return (
-    <aside className="h-full w-18 md:w-20 bg-slate-900 lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200">
+    <aside className="h-full w-16 md:w-20 bg-slate-900 lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200">
       <div className="border-b border-base-300 w-full p-5">
         <div className="flex items-center gap-2">
           <Users className="w-6 h-6" />
@@ -75,7 +75,7 @@ function Sidebar() {
               <img
                 src={user.profilePic || "/assets/avatar.png"}
                 alt={user.name}
-                className="size-12 rounded-full object-cover"
+                className="size-10 md:size-12 rounded-full object-cover"
               />
               {lastMessageMap[user._id]?.unreadCount > 0 && (
                 <div className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">

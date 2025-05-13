@@ -80,7 +80,7 @@ const LoginPage = () => {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute top-1/2 right-2 transform -translate-y-1/2 cursor-pointer text-sm text-white"
                   >
-                    {showPassword ? (
+                    {showPassword ? ( 
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3l18 18M17.94 17.94C16.24 19.25 14.21 20 12 20c-5 0-9.27-3.11-11-8 0 0 1.02-2.36 3.18-4.28M10.6 10.6a3 3 0 014.24 4.24" />
                       </svg>
